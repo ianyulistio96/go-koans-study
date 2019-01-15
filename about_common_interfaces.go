@@ -1,6 +1,10 @@
 package go_koans
 
-import "bytes"
+import (
+	"bytes"
+	"strings"
+
+)
 
 func aboutCommonInterfaces() {
 	{
@@ -8,7 +12,9 @@ func aboutCommonInterfaces() {
 		in.WriteString("hello world")
 
 		out := new(bytes.Buffer)
-
+		
+		in.WriteTo(out)
+		
 		/*
 		   Your code goes here.
 		   Hint, use these resources:
@@ -18,7 +24,7 @@ func aboutCommonInterfaces() {
 		   $ open http://localhost:8080/pkg/bytes/
 		*/
 
-		assert(out.String() == "") // get data from the io.Reader to the io.Writer
+		assert(out.String() == "hello world") // get data from the io.Reader to the io.Writer
 	}
 
 	{
@@ -26,7 +32,7 @@ func aboutCommonInterfaces() {
 		in.WriteString("hello world")
 
 		out := new(bytes.Buffer)
-
-		assert(out.String() == "") // duplicate only a portion of the io.Reader
+		out.WriteString(strings.Split(in.String(), " ")[0])
+		assert(out.String() == "hello") // duplicate only a portion of the io.Reader
 	}
 }
